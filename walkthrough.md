@@ -13,15 +13,15 @@ Let me know if you're stuck and the answers are missing - I'd love to update to 
 3) The function should _push_ the guest (from the function parameter) into the hotel's guest array. 
 4) For now, let's return true when the action has been completed _- we might change later, but imagine this message shows on the concierge's screen._
 
-<details><summary>Click to see an example</summary>
-<p>
-```javascript 
-  static checkInGuest(guest: { name: string }): boolean{
-    this.guests.push(guest);
-    return true
-  }
-```
-</p>
+<details>
+  <summary>Click to see an example</summary>
+  
+  ```javascript
+     static checkInGuest(guest: { name: string }): boolean{
+           this.guests.push(guest);
+           return true
+         }
+  ```
 </details>
 
 ### 'It should check in more than 1 guest at once)'
@@ -30,30 +30,32 @@ Let me know if you're stuck and the answers are missing - I'd love to update to 
 3) Set up the conditions of the experiment: yuo have a hotel class established already (this is recreated for each test in the 'beforeEach' block). Check two guests in.
 4) Add an expectation: what should happen when a second guest checks in? There should be 2 guests in the guest array, right?
 
-<details><summary>Click to show</summary>
-<p>
-```javascript 
-it ('should check in 2 guests', () => {
-    //set up: 
-    const name1 = Random.string();
-    const name2 = Random.string();
-    hotel.checkInGuest({name: name1});
-    hotel.checkInGuest({name: name2});
-    // expectation: 
-    expect(hotel.guests).to.eql([{name: name1}, {name: name2}]);
-    });
-```
-</p>
+<details>
+  <summary>Click to show</summary>
+  
+  ```javascript
+     it ('should check in 2 guests', () => {
+         //set up: 
+         const name1 = Random.string();
+         const name2 = Random.string();
+         hotel.checkInGuest({name: name1});
+         hotel.checkInGuest({name: name2});
+         // expectation: 
+         expect(hotel.guests).to.eql([{name: name1}, {name: name2}]);
+         });
+  ```
 </details>
 
 * _More on testing coming in a new codeSchool module soon_
 
 ### 'It should only check in a guest once'
 1) write your test and implement a solution. 
-2) Refactoring 
+2) Refactoring: complicated code is bad: 
+- difficult to make changes/additions 
+- high risk of making a mistake 
+- anyone else who works on your code base has to first unpick your crazy logic 
 
-
-_Refactoring test?_ 
+Don't forget to refactor your tests too: 
 
 
 
