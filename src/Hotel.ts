@@ -2,26 +2,17 @@ import {Guest} from "./Guest";
 
 export class Hotel {
   public guests: Guest[] = [];
-  private availableRooms: number;
 
-  constructor(public rooms: number) {
-  }
+  constructor(public rooms: number) {}
 
   public checkInGuest(guest: Guest) {
-    if(this.guests.filter(checkedInGuest => checkedInGuest === guest) .length < 1){
-      if(this.rooms - this.guests.length <= 0) {
-        return false
-        // throw Error("No more space at the inn")
-      }
-      this.guests.push(guest);
-      this.updateRoomCount();
-     } else {
-      // throw Error("This guest is already checked in")
+    if(this.guests.includes(guest) || this.availableRooms() === 0) {
       return false
     }
+    this.guests.push(guest);
   };
 
-  private updateRoomCount() {
-    this.availableRooms = this.rooms - this.guests.length;
+  private availableRooms() : number {
+    return this.rooms - this.guests.length;
   }
 }
