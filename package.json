@@ -1,0 +1,28 @@
+{
+  "name": "parking_shell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --require ts-node/register 'test/*.test.ts'",
+    "start": "ts-node src/main.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isabelcooper/hotelShellSample/issues"
+  },
+  "homepage": "https://github.com/isabelcooper/hotelShellSample#readme",
+  "dependencies": {
+    "@types/chai": "^4.2.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.4",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.6.2"
+  }
+}
