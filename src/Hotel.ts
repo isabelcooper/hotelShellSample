@@ -23,6 +23,5 @@ export class Hotel {
 
   private updateRoomCount() {
     this.availableRooms = this.rooms - this.guests.length;
-    console.log(this.availableRooms);
   }
 }

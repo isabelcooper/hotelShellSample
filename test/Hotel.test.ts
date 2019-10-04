@@ -8,25 +8,26 @@ describe("Hotel", () => {
   let guest: Guest;
   const name1 = Random.string();
 
+  describe("Handling checkin", () => {
+    beforeEach(() => {
+      hotel = new Hotel(10);
+      guest = new Guest(Random.string());
+    });
 
-  beforeEach(() => {
-    hotel = new Hotel(10);
-    guest = new Guest(Random.string());
-  });
-
-  describe("Establishing the hotel", () => {
     it ('should be created with no guests', () => {
       expect(hotel.guests).to.eql([])
     });
-  });
 
-  describe("Handling checkin", () => {
     it ('should check in a new guest', () => {
-      const name = Random.string();
-      hotel.checkInGuest(guest);
-      expect(hotel.guests).to.eql([{name}]);
       hotel.checkInGuest(guest);
       expect(hotel.guests).to.eql([guest]);
+    });
+
+    it ('should allow multiple guests to check in', () => {
+      const guest2 = new Guest(Random.string());
+      hotel.checkInGuest(guest);
+      hotel.checkInGuest(guest2);
+      expect(hotel.guests).to.eql([guest, guest2]);
     });
 
     it ('should only allow a guest to check in once', () => {
@@ -37,7 +38,6 @@ describe("Hotel", () => {
 
     it('should check in multiple guests', () => {
       const guest2 = new Guest(Random.string());
-      console.log(hotel.guests);
       hotel.checkInGuest(guest);
       hotel.checkInGuest(guest2);
       expect(hotel.guests).to.eql([guest,guest2]);
