@@ -1,6 +1,6 @@
 # Walkthrough
 
-Try this out without the walkthrough first - this is more to help you get unstuck. There are many ways to build this though, so don't worry if you've come up with something else - it might well be better! 
+A few tips to get you going. There are many ways to build this though, so don't worry if you've come up with something else - it might well be better! 
 Let me know if you're stuck and the answers are missing - I'd love to update to make this more helpful! 
 
 ### Where to start
@@ -16,7 +16,7 @@ Let me know if you're stuck and the answers are missing - I'd love to update to 
 <details>
   <summary>Click to see an example</summary>
   
-  ```javascript
+  ```typescript
      static checkInGuest(guest: { name: string }): boolean{
            this.guests.push(guest);
            return true
@@ -33,7 +33,7 @@ Let me know if you're stuck and the answers are missing - I'd love to update to 
 <details>
   <summary>Click to show</summary>
   
-  ```javascript
+  ```typescript
      it ('should check in 2 guests', () => {
          //set up: 
          const name1 = Random.string();
@@ -48,41 +48,49 @@ Let me know if you're stuck and the answers are missing - I'd love to update to 
 
 * _More on testing coming in a new codeSchool module soon_
 
-### 'It should only check in a guest once'
-1) write your test and implement a solution. 
-2) Refactoring: complicated code is bad: 
-- difficult to make changes/additions 
-- high risk of making a mistake 
-- anyone else who works on your code base has to first unpick your crazy logic 
+### TDD more features into you hotel class
+1) For each feature start with a failing test before implementing a solution.
+2) Consider refactoring. 
+Do actually need to have a nested loop? 
+Should any of the functionality be extracted into another class/function? 
+Don't forget to refactor your tests too.
 
-Don't forget to refactor your tests too: 
+<details>
+  <summary>Click to show</summary>
+  
+```typescript
+// a beforeEach can help keep testing tidy: 
+    beforeEach(() => {
+      hotel = new Hotel(10);
+      guest = new Guest(Random.string());
+    });
+// an early return means the remaining code won't be run if the 'if' conditions are met: 
+  public checkInGuest(guest: Guest) : boolean {
+    if(this.guests.includes(guest) || this.availableRooms() === 0) {
+      return false
+    }
+    this.guests.push(guest);
+  };
+```
+
+</details>
 
 
+### Delegate responsibility
 
-### Features to add: 
+As you work, you might find your hotel class having to hold on to lots of information, like the names, locations, dietary preferences of guests or the cost of items on the menu. When you're adding a feature (or during refactoring), consider moving some of this into new classes eg: 
+Guest class: stores guest's location, dietary requirements
+Restaurant class: stores the menu and guest selections
+Calculator class: handles the calculation of bills, given a list 
+Concierge/Printer class: prints system feedback (like whether there's a free room) back to the terminal and accepts input from guests. 
 
-#### Checking In 
-- [ ] Confirm a stay for tonight and update the hotel
-- [ ] Don't allow the same guest to check in more than once (throw an error?)
-- [ ] Don't allow a guest to check in if there are no free rooms
-- [ ] BONUS: Consider refactoring your 'checkIn' function 
+### Stubbing in tests
 
-#### Check out
-- [ ] On checking out a guest, update the hotel system to record the free room
-- [ ] Request payment from the guest on checkout
+In unit testing, you're only interested in how the class behaves that you're testing, so it can be helpful to control the behaviour of other classes it calls out to so you know what kind of repsonse you're expecting. 
 
-#### Guests
-- [ ] Store guests' names and dietary requirements eg vegetarian, nut allergy etc. 
-- [ ] Guests should know which hotel they're checked in at at any given time.
+For example, if your hotel class checks a guest's location before checking them in, you might want to control 2 scenarios: 
+1) the guest is already checked in at a hotel (expecting the checkin to be fail)
+2) the guest is not checked in anywhere (expecting the checkin to be successful)
 
-#### Rooms
-- [ ] Record when a guest complains about a room - the room cannot be used while it is broken
-- [ ] Send a builder to fix the broken room 
-
-#### Restaurant
-- [ ] Print a restaurant menu 
-- [ ] Select a menu for a guest, but don't give them anything they're allergic to
-- [ ] Update checkout to include the restaurant bill
-
-#### More hotels
-- [ ] Add another hotel to the chain. A guest cannot be staying in more than one hotel on any given night. 
+// fake guest with controlled response?
+// need to cover types first? 

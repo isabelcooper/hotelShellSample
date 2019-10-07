@@ -5,7 +5,7 @@ export class Hotel {
 
   constructor(public rooms: number) {}
 
-  public checkInGuest(guest: Guest) {
+  public checkInGuest(guest: Guest) : boolean {
     if(this.guests.includes(guest) || this.availableRooms() === 0) {
       return false
     }
