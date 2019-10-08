@@ -56,5 +56,12 @@ describe("Hotel", () => {
     const guest2 = new Guest(Random.string());
     hotel.checkInGuest([guest, guest2]);
     expect(hotel.guests).to.eql([guest, guest2]);
-  })
+  });
+
+  it('should check out guests', () => {
+    const guest2 = new Guest(Random.string());
+    hotel.checkInGuest([guest, guest2]);
+    hotel.checkOutGuest([guest]);
+    expect(hotel.guests).to.eql([guest2]);
+  });
 });

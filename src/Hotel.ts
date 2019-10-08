@@ -10,7 +10,7 @@ export class Hotel {
       throw Error('No more space at the inn')
     }
 
-    incomingGuests.map( incomingGuest => {
+    incomingGuests.forEach( incomingGuest => {
       if (this.guests.includes(incomingGuest)) {
         throw Error('This guest is already checked in')
       }
@@ -20,5 +20,13 @@ export class Hotel {
 
   private availableRooms() : number {
     return this.rooms - this.guests.length;
+  }
+
+  checkOutGuest(guestsToCheckout: Guest[]) {
+    guestsToCheckout.forEach(guestToCheckout => {
+      this.guests = this.guests.filter(guest => {
+        return guest !== guestToCheckout
+      })
+    })
   }
 }
