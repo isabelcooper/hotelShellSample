@@ -5,11 +5,17 @@ export class Hotel {
 
   constructor(public rooms: number) {}
 
-  public checkInGuest(guest: Guest) : boolean {
-    if(this.guests.includes(guest) || this.availableRooms() === 0) {
-      return false
+  public checkInGuest(incomingGuests: Guest[]) : void {
+    if(this.availableRooms() === 0) {
+      throw Error('No more space at the inn')
     }
-    this.guests.push(guest);
+
+    incomingGuests.map( incomingGuest => {
+      if (this.guests.includes(incomingGuest)) {
+        throw Error('This guest is already checked in')
+      }
+      this.guests.push(incomingGuest);
+    });
   };
 
   private availableRooms() : number {
